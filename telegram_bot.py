@@ -23,9 +23,12 @@ class DummyHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
         self.wfile.write(b"Telegram Bot is running smoothly on Render!")
+        
+    def do_HEAD(self):  # ضفنا السطرين دول عشان UptimeRobot
+        self.send_response(200)
+        self.end_headers()
 
 def keep_alive():
-    # Render بيحدد البورت تلقائي، لو ملقاهوش بيستخدم 10000
     port = int(os.getenv("PORT", 10000))
     server = HTTPServer(('0.0.0.0', port), DummyHandler)
     server.serve_forever()
